@@ -2,6 +2,7 @@
 [width: 34]
 [height: 17]
 [frameRate: 1]
+[frameCount: 3]
 [frame: 0]
                                   
           ██          ██          

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SESSION="tca"
+SESSION="TAC"
 TARGET_DIR=$(pwd)
 tmux kill-session -t "$SESSION" 2>/dev/null
 

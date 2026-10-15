@@ -4,7 +4,6 @@ use std::fs::File;
 use std::io::{self, BufRead, BufReader, Write};
 use std::str::FromStr;
 use std::string::String;
-use std::{env, u16, usize};
 
 #[derive(Debug)]
 struct MetaData {
@@ -20,6 +19,7 @@ impl MetaData {
         Self {
             version: 0,
             framerate: 0,
+            frame_count: 0,
             height: 0,
             width: 0,
         }
@@ -128,10 +128,6 @@ impl Tac {
         }
     }
 
-    fn get_frame(&self, id: u16) -> &Frame {
-        &self.frames.get(id as usize).unwrap()
-    }
-
     fn is_empty(&self) -> bool {
         if self.metadata.frame_count == 0 {
             true
@@ -140,11 +136,15 @@ impl Tac {
         }
     }
 
-    fn get_version() -> u8 {}
-    fn get_framerate() -> u8 {}
-    fn get_height() -> u16 {}
-    fn get_width() -> u16 {}
-    fn get_frame_count() -> u16 {}
+    fn get_metadata(&self) -> &MetaData {
+        &self.metadata
+    }
+}
+
+#[derive(Debug)]
+struct TacPlayer {
+    animation: Tac,
+    _loop: bool,
 }
 
 fn main() -> io::Result<()> {
@@ -152,8 +152,7 @@ fn main() -> io::Result<()> {
     let file = File::open(input_file_path)?;
     let pulsar = Tac::new(file);
     println!("{:#?}", pulsar);
-    println!("{:#?}", pulsar.get_frame(2));
-    println!("{:#?}", pulsar.metadata);
+    println!("{:#?}", pulsar.get_metadata());
 
     Ok(())
 }
